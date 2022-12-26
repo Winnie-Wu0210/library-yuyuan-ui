@@ -1,7 +1,10 @@
 <script setup>
-import {ref, computed, onMounted} from 'vue'
+import {ref, computed, onMounted, onBeforeUnmount} from 'vue'
 onMounted(() => {
   swiperStart()
+})
+onBeforeUnmount(() => {
+  clearInterval(swiperTimer)
 })
 // 图片列表
 const imgList = [
@@ -62,21 +65,25 @@ const imgList = [
   }
 ]
 // 当前图片
-const swiperCurrent = ref(1)
+const swiperCurrent = ref(0)
 // 当前图片样式
 const swiperCurrentStyle = {
   transform: 'scale(1.2)',
 }
 // 返回动画
 const swiperBack = (current) => {
-  if(current === swiperCurrent.value) {
-    return 'move-add-in'
-  }else if(current === swiperCurrent.value - 1) {
-    return 'move-add-out'
-  }else if(current === swiperCurrent.value + 1) {
-    return 'move-add-translation'
-  // }else {
-  //   return 'move-add-translation'
+  let point1 = swiperCurrent.value < 2 ? swiperCurrent.value - 2 + imgList.length : swiperCurrent.value - 2;
+  let point2 = swiperCurrent.value < 1 ? swiperCurrent.value - 1 + imgList.length : swiperCurrent.value - 1;
+  let point3 = swiperCurrent.value;
+  let point4 = swiperCurrent.value > imgList.length - 2 ? swiperCurrent.value + 1 - imgList.length : swiperCurrent.value + 1;
+  if(current === point3) {
+    return 'move-left-in'
+  }else if(current === point2) {
+    return 'move-left-out'
+  }else if(current === point4) {
+    return 'move-left-translation'
+  }else if(current === point1) {
+    return 'move-left-translation'
   }
 }
 
@@ -100,6 +107,8 @@ const swiperList = computed(() => {
 // 点击选中
 const swiperClick = (item) => {
   swiperCurrent.value = item.id
+  clearInterval(swiperTimer)
+  swiperStart()
 }
 // 自动下一张
 const swiperAutoPlay = () => {
@@ -140,14 +149,14 @@ const swiperStart = () => {
     display: flex;
     align-items: center;
     // 手指向左滑动，当先图片缩小并向左移动，下一张图片放大并向左移动
-    .move-add-in {
-      animation: move-add-in 1s;
+    .move-left-in {
+      animation: move-left-in 1s;
     }
-    .move-add-out {
-      animation: move-add-out 1s;
+    .move-left-out {
+      animation: move-left-out 1s;
     }
-    .move-add-translation {
-      animation: move-add-translation 1s;
+    .move-left-translation {
+      animation: move-left-translation 1s;
     }
     // 手指向右滑动，当先图片缩小并向右移动，上一张图片放大并向右移动
     .swiper-item {
@@ -163,7 +172,7 @@ const swiperStart = () => {
   }
 }
 // 当前图片左滑进入
-@keyframes move-add-in {
+@keyframes move-left-in {
   0% {
     transform: translateX(100%) scale(1);
   }
@@ -172,7 +181,7 @@ const swiperStart = () => {
   }
 }
 // 上一张图片左滑退出
-@keyframes move-add-out {
+@keyframes move-left-out {
   0% {
     transform: translateX(100%) scale(1.2);
   }
@@ -181,7 +190,7 @@ const swiperStart = () => {
   }
 }
 // 其他图片左滑平移
-@keyframes move-add-translation {
+@keyframes move-left-translation {
   0% {
     transform: translateX(100%);
   }
