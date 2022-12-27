@@ -1,0 +1,9 @@
+.el-tabs {
+  .el-tabs__header {
+    .el-tabs__item {
+      &:nth-child(2) {
+        padding-left: 20px;
+      }
+    }
+  }
+}

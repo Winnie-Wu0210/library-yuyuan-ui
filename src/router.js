@@ -15,6 +15,11 @@ const routes = [
         path: '/swiper',
         name: 'swiper',
         component: () => import('./pages/swiper/index.vue')
+    },
+    {
+        path: '/progress',
+        name: 'progress',
+        component: () => import('./pages/progress/index.vue')
     }
 ]
 

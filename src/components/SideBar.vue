@@ -26,9 +26,9 @@ const list = [
   },
   {
     id: 3,
-    name: 'demo',
-    fullPath: '/demo',
-    path: '/demo',
+    name: '进度条',
+    fullPath: '/progress',
+    path: 'progress',
   }
 ]
 // 侧边栏高亮样式
