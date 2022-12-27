@@ -29,6 +29,12 @@ const list = [
     name: '进度条',
     fullPath: '/progress',
     path: 'progress',
+  },
+  {
+    id: 4,
+    name: 'demo',
+    fullPath: '/demo',
+    path: 'demo',
   }
 ]
 // 侧边栏高亮样式
@@ -38,7 +44,7 @@ const  activeStyle = {
 }
 // 侧边栏点击事件
 const changeActiveItem = (item) => {
-  if(item.fullPath === fullPath.value || item.fullPath === '/demo') return
+  if(item.fullPath === fullPath.value) return
   fullPath.value = item.fullPath
   router.push(item.fullPath)
 }

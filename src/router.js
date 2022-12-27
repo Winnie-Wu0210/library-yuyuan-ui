@@ -4,22 +4,27 @@ const routes = [
     {
         path: '/',
         name: '',
-        component: () => import('./pages/home/index.vue')
+        component: () => import('./views/home/index.vue')
     },
     {
         path: '/home',
         name: 'Home',
-        component: () => import('./pages/home/index.vue')
+        component: () => import('./views/home/index.vue')
     },
     {
         path: '/swiper',
         name: 'swiper',
-        component: () => import('./pages/swiper/index.vue')
+        component: () => import('./views/swiper/index.vue')
     },
     {
         path: '/progress',
         name: 'progress',
-        component: () => import('./pages/progress/index.vue')
+        component: () => import('./views/progress/index.vue')
+    },
+    {
+        path: '/demo',
+        name: 'demo',
+        component: () => import('./views/demo/index.vue')
     }
 ]
 
